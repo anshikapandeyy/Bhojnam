@@ -1,4 +1,5 @@
-.header{
+ @import "tailwindcss";
+/* .header{
     display:flex;
     justify-content:space-between;
     border:1px solid black;
@@ -37,4 +38,17 @@
     display:flex;
     flex-wrap:wrap;
     gap:20px;
+}  */
+
+@keyframes shimmer {
+  0% {
+    left: -150px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
 }

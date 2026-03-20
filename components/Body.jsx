@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard.jsx";
+import RestaurantCard,{withPromotedLabel} from "./RestaurantCard.jsx";
 import restaurantList from "../utils/constants";
 import { useState,useEffect } from "react";
 import Shimmer from "./Shimmer";
@@ -8,6 +8,7 @@ const Body = () => {
   const [allRestaurants] = useState(restaurantList);
   const [listOfRestaurants, setListOfRestaurants] = useState(restaurantList);
   const [searchText, setSearchText] = useState("");
+  const PromotedRestaurantCard = withPromotedLabel(RestaurantCard);
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -65,16 +66,26 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-        {listOfRestaurants.map((res) => (
-          <RestaurantCard
-            key={res.id}
-            resName={res.resName}
-            cuisine={res.cuisine}
-            rating={res.rating}
-            resImage={res.resImage}
-          />
-        ))}
-      </div>
+  {listOfRestaurants.map((res) => {
+    return res.promoted ? (
+      <PromotedRestaurantCard
+        key={res.id}
+        resName={res.resName}
+        cuisine={res.cuisine}
+        rating={res.rating}
+        resImage={res.resImage}
+      />
+    ) : (
+      <RestaurantCard
+        key={res.id}
+        resName={res.resName}
+        cuisine={res.cuisine}
+        rating={res.rating}
+        resImage={res.resImage}
+      />
+    );
+  })}
+</div>
     </div>
   );
 };

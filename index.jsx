@@ -8,6 +8,7 @@ import Error from "./components/Error.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import RestaurantCard from "./components/RestaurantCard.jsx";
+import "./style.css";
 const AppLayout = () => {
     return (
         <div className="app">
