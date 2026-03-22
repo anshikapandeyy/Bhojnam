@@ -8,6 +8,8 @@ import Error from "./components/Error.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import RestaurantCard from "./components/RestaurantCard.jsx";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
 import "./style.css";
 const AppLayout = () => {
     return (
@@ -17,6 +19,7 @@ const AppLayout = () => {
         </div>
     );
 };
+
 const appRouter = createBrowserRouter([
     {
         path: "/",
@@ -38,6 +41,12 @@ const appRouter = createBrowserRouter([
         errorElement: <Error/>
     },
 ]);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+
+root.render(
+    <Provider store={appStore}>
+        <RouterProvider router={appRouter} />
+    </Provider>
+);
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<RouterProvider router={appRouter} />);

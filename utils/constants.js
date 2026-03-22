@@ -1,4 +1,4 @@
-const restaurantList = [
+const RestaurantList = [
   { id: 1, resName: "Spice Route", cuisine: "North Indian, Mughlai", rating: 4.5, promoted: true, resImage: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg" },
   { id: 2, resName: "Urban Tandoor", cuisine: "Punjabi", rating: 4.3, promoted: true, resImage: "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg" },
   { id: 3, resName: "Pizza Napoli", cuisine: "Italian", rating: 4.4, promoted: false, resImage: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg" },
@@ -50,5 +50,40 @@ const restaurantList = [
   { id: 49, resName: "Kitchen Stories", cuisine: "Continental", rating: 4.3, promoted: false, resImage: "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg" },
   { id: 50, resName: "Foodie's Hub", cuisine: "Multi Cuisine", rating: 4.2, promoted: true, resImage: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg" }
 ];
+const restaurantList = RestaurantList.map((res) => {
+  let recommended = [];
+  let newItems = [];
+
+  if (res.cuisine.includes("Italian")) {
+    recommended = ["Pizza", "Pasta", "Garlic Bread"];
+    newItems = ["Cheese Burst Pizza", "White Sauce Pasta"];
+  } 
+  else if (res.cuisine.includes("Indian") || res.cuisine.includes("North Indian")) {
+    recommended = ["Paneer Butter Masala", "Dal Makhani"];
+    newItems = ["Cheese Naan", "Tandoori Momos"];
+  } 
+  else if (res.cuisine.includes("Chinese")) {
+    recommended = ["Noodles", "Manchurian"];
+    newItems = ["Chilli Paneer", "Spring Roll"];
+  } 
+  else if (res.cuisine.includes("Cafe")) {
+    recommended = ["Coffee", "Brownie"];
+    newItems = ["Oreo Shake", "Cold Coffee"];
+  } 
+  else if (res.cuisine.includes("Fast Food")) {
+    recommended = ["Burger", "Fries"];
+    newItems = ["Loaded Fries", "Cheese Burger"];
+  } 
+  else {
+    recommended = ["Special Dish", "Chef Choice"];
+    newItems = ["New Special", "Trending Dish"];
+  }
+
+  return {
+    ...res,
+    recommended,
+    newItems
+  };
+});
 
 export default restaurantList;

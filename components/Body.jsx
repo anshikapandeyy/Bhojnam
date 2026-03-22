@@ -1,56 +1,54 @@
-import RestaurantCard,{withPromotedLabel} from "./RestaurantCard.jsx";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard.jsx";
 import restaurantList from "../utils/constants";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
 
   const [allRestaurants] = useState(restaurantList);
   const [listOfRestaurants, setListOfRestaurants] = useState(restaurantList);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [searchText, setSearchText] = useState("");
+
   const PromotedRestaurantCard = withPromotedLabel(RestaurantCard);
 
-  return listOfRestaurants.length === 0 ? (
-    <Shimmer />
-  ) : (
+  if (listOfRestaurants.length === 0) return <Shimmer />;
+
+  return (
     <div className="body">
+
       <div className="filter">
 
-        <div className="search">
-          <input
-            type="text"
-            className="search-box"
-            value={searchText}
-            placeholder="Search Restaurants..."
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-          />
-
-          <button
-            onClick={() => {
-              const filtered = allRestaurants.filter((res) =>
-                res.resName
-                  .toLowerCase()
-                  .includes(searchText.toLowerCase())
-              );
-              setListOfRestaurants(filtered);
-            }}
-          >
-            Search
-          </button>
-        </div>
+        <input
+          className="search-box"
+          type="text"
+          placeholder="Search..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
 
         <button
           className="filter-btn"
           onClick={() => {
-            const filtered = allRestaurants.filter(
-              (res) => res.rating > 4
+            setListOfRestaurants(
+              allRestaurants.filter((res) =>
+                res.resName.toLowerCase().includes(searchText.toLowerCase())
+              )
             );
-            setListOfRestaurants(filtered);
           }}
         >
-          Top Rated Restaurants
+          Search
+        </button>
+
+        <button
+          className="filter-btn"
+          onClick={() => {
+            setListOfRestaurants(
+              allRestaurants.filter((res) => res.rating > 4)
+            );
+          }}
+        >
+          Top Rated
         </button>
 
         <button
@@ -66,26 +64,43 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-  {listOfRestaurants.map((res) => {
-    return res.promoted ? (
-      <PromotedRestaurantCard
-        key={res.id}
-        resName={res.resName}
-        cuisine={res.cuisine}
-        rating={res.rating}
-        resImage={res.resImage}
-      />
-    ) : (
-      <RestaurantCard
-        key={res.id}
-        resName={res.resName}
-        cuisine={res.cuisine}
-        rating={res.rating}
-        resImage={res.resImage}
-      />
-    );
-  })}
-</div>
+        {listOfRestaurants.map((res) =>
+          res.promoted ? (
+            <PromotedRestaurantCard
+              key={res.id}
+              {...res}
+              onClick={() => setSelectedRestaurant(res)}
+            />
+          ) : (
+            <RestaurantCard
+              key={res.id}
+              {...res}
+              onClick={() => setSelectedRestaurant(res)}
+            />
+          )
+        )}
+      </div>
+
+      {selectedRestaurant && (
+        <div className="recommend">
+          <h2>{selectedRestaurant.resName}</h2>
+
+          <h3>Recommended</h3>
+          <ul>
+            {selectedRestaurant.recommended?.map((dish, i) => (
+              <li key={i}>{dish}</li>
+            ))}
+          </ul>
+
+          <h3>New Items</h3>
+          <ul>
+            {selectedRestaurant.newItems?.map((dish, i) => (
+              <li key={i}>{dish}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
     </div>
   );
 };

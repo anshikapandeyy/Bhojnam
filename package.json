@@ -17,6 +17,7 @@
     "tailwindcss": "^4.2.2"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/postcss": "^4.2.1",
     "ansi-styles": "^4.3.0",
     "base-x": "^3.0.11",
@@ -58,6 +59,7 @@
     "postcss-value-parser": "^4.2.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-redux": "^9.2.0",
     "react-refresh": "^0.16.0",
     "react-router-dom": "^6.30.3",
     "regenerator-runtime": "^0.14.1",
