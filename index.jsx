@@ -7,6 +7,7 @@ import Body from "./components/Body.jsx";
 import Error from "./components/Error.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
+import Cart from "./components/cart.jsx";
 import RestaurantCard from "./components/RestaurantCard.jsx";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore.js";
@@ -36,6 +37,10 @@ const appRouter = createBrowserRouter([
             {
                 path: "/contact",
                 element: <Contact />
+            },
+            {
+                path: "/cart",
+                element: <Cart />
             },
         ],
         errorElement: <Error/>

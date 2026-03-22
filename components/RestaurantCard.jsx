@@ -8,8 +8,12 @@ const RestaurantCard=(props)=>{
     const fullStars = Math.floor(props.rating);
   const emptyStars = 5 - fullStars;
   const dispatch=useDispatch();
-  const handleClick=()=>{
-    dispatch(addItems("pizza"));
+  const handleClick=(e)=>{
+    e.stopPropagation();
+    dispatch(addItems({resName: props.resName,
+  resImage: props.resImage,
+  cuisine: props.cuisine,
+  rating: props.rating}));
   };
   return(
         <div className="res-card" style={StyleCard} onClick={() => props.onClick(props)}>
